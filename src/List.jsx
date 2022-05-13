@@ -21,6 +21,8 @@ const itemReducer = (state, action) => {
                 }
                 return item;
             });
+        case 'delete':
+            return state.filter((item) => item.id !== action.payload.id);
     }
 };
 
@@ -37,6 +39,10 @@ export default function ShoppingList() {
     const handleUpdate = (item) => {
         dispatch({ type: 'update', payload: { item } });
     };
+
+    const handleDelete = (id) => {
+        dispatch({ type: 'delete', payload: { id } });
+    }
 
     return (
         <>
@@ -59,6 +65,12 @@ export default function ShoppingList() {
                           onChange={(e) => handleUpdate({ ...item, done: e.target.value } )}
                           />
                       {item.text}
+                      <button
+                        type='button'
+                        onClick={() => handleDelete(item.id)}
+                      >
+                          Delete Item
+                      </button>
                       </div>
                   </li>
               ))}
