@@ -1,9 +1,11 @@
 import { createContext, useContext, useReducer, useState } from "react";
+import { useList } from "./context/ListProvider";
 
 
 
 export default function ShoppingList() {
     const [newItem, setnewItem] = useState('');
+    const { items, handleAddItem, handleUpdate, handleDelete } = useList();
     const [isEditing, setIsEditing] = useState(false);
 
 
