@@ -9,6 +9,18 @@ const itemReducer = (state, action) => {
                 { id: Date.now(), text: action.payload.text, done: false },
                 ...state,
             ];
+        case 'update':
+            return state.map((item) => {
+                if (item.id === action.payload.item.id) {
+                    const { done, text } = action.payload.item;
+                    return {
+                        ...item,
+                        done,
+                        text,
+                    };
+                }
+                return item;
+            });
     }
 };
 
@@ -20,6 +32,10 @@ export default function ShoppingList() {
         e.preventDefault();
         dispatch({ type: 'add', payload: { text: newItem } });
         setnewItem('');
+    };
+
+    const handleUpdate = (item) => {
+        dispatch({ type: 'update', payload: { item } });
     };
 
     return (
@@ -36,9 +52,17 @@ export default function ShoppingList() {
           </form>
           <ul>
               {items.map((item) => (
-                  <li key={item.id}>{item.text}</li>
+                  <li key={item.id}>
+                      <div>
+                          <input type='checkbox'
+                          checked={item.done}
+                          onChange={(e) => handleUpdate({ ...item, done: e.target.value } )}
+                          />
+                      {item.text}
+                      </div>
+                  </li>
               ))}
           </ul>
         </>
-    )
+    );
 }
