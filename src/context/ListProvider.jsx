@@ -7,8 +7,8 @@ const itemReducer = (state, action) => {
     switch (action.type) {
         case 'add':
             return [
-                { id: Date.now(), text: action.payload.text, done: false },
-                ...state,
+                ...state, { id: Date.now(), text: action.payload.text, done: false },
+                
             ];
         case 'update':
             return state.map((item) => {
@@ -33,10 +33,8 @@ const ListContext = createContext();
 export function ListProvider({ children }) {
     const [items, dispatch] = useReducer(itemReducer, intitialList);
 
-    const handleAddItem = (e) => {
-        e.preventDefault();
-        dispatch({ type: 'add', payload: { text: newItem } });
-        setnewItem('');
+    const handleAddItem = (text) => {
+        dispatch({ type: 'add', payload: { text } });
     };
 
     const handleUpdate = (item) => {
