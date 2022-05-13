@@ -1,3 +1,11 @@
+import Header from "./components/Header";
+import List from './context/List';
+
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <>
+      <Header />
+      <List />
+    </>
+  );
 }
