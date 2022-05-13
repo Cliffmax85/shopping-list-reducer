@@ -24,6 +24,8 @@ const itemReducer = (state, action) => {
             });
         case 'delete':
             return state.filter((item) => item.id !== action.payload.id);
+        case 'delete_all':
+            return [{ id: null, text: null, done: null}];
     }
 };
 
@@ -45,9 +47,14 @@ export function ListProvider({ children }) {
         dispatch({ type: 'delete', payload: { id } });
     };
 
+    const handleDeleteAll = () => {
+        dispatch({ type: 'delete_all', payload: {} })
+    }
+    // empty array might not work here?
+
     return (
         <ListContext.Provider
-          value={{ items, handleAddItem, handleUpdate, handleDelete }}>
+          value={{ items, handleAddItem, handleUpdate, handleDelete, handleDeleteAll }}>
           {children}
         </ListContext.Provider>
     );
