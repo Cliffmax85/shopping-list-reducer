@@ -29,6 +29,7 @@ const itemReducer = (state, action) => {
 export default function ShoppingList() {
     const [items, dispatch] = useReducer(itemReducer, intitialList);
     const [newItem, setnewItem] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
 
     const handleAddItem = (e) => {
         e.preventDefault();
@@ -64,7 +65,28 @@ export default function ShoppingList() {
                           checked={item.done}
                           onChange={(e) => handleUpdate({ ...item, done: e.target.value } )}
                           />
-                      {item.text}
+                          {isEditing ? (
+                              <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    setIsEditing(false);
+                                }}
+                              >
+                                  <input
+                                    value={item.text}
+                                    onChange={(e) => {
+                                        handleUpdate({ ...item, text: e.target.value })
+                                    }}
+                                  />
+                              </form>
+                          ) : (
+                            item.text
+                      )}
+                      <button 
+                        type='button'
+                        onClick={() => setIsEditing(true)}>
+                            Edit
+                        </button>
                       <button
                         type='button'
                         onClick={() => handleDelete(item.id)}
