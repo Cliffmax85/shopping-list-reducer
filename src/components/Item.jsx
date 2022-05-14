@@ -24,7 +24,7 @@ export default function Item({ item, onUpdate, onDelete }) {
                 {item.text}
             </p>
             <button
-                aria-label={`edit button`}
+                aria-label={`edit button for ${item.text}`}
                 type='button'
                 onClick={() => setIsEditing(true)}>
                     Edit
@@ -44,7 +44,7 @@ export default function Item({ item, onUpdate, onDelete }) {
         }} />
         {content}
         <button 
-        aria-label={`delete button`} 
+        aria-label={`delete button for ${item.text}`} 
         type='button' 
         onClick={() => onDelete(item.id)} >
             Delete Item
