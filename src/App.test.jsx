@@ -44,7 +44,6 @@ describe('behavior of the shopping list app', () => {
 
 
 
-        screen.debug();
 
     })
 })
